@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
 import { validationResult, check } from "express-validator/check";
 import puppeteer from "puppeteer";
-import { createHash } from "crypto";
 import { existsSync } from "fs";
 import { SCREENSHOTS_PATH } from "../util/secrets";
+import { getScreenshotName } from "../util/helpers";
 import Bookmark from "../models/bookmark";
 
 const router = Router();
@@ -18,8 +18,8 @@ export const getApi = (req: Request, res: Response) => {
 router.get("/", getApi);
 
 /**
- * GET /api/screenshot
- * Get a screenshot of an URL
+ * GET /api/preview
+ * Get title and screenshot of an URL
  */
 export const getPreview = async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -28,9 +28,7 @@ export const getPreview = async (req: Request, res: Response) => {
   }
 
   const {url} = req.query;
-  const hash = createHash("sha256");
-  hash.update(url);
-  const filename = `${hash.digest("hex")}.png`;
+  const filename = getScreenshotName(url);
   const path = `${SCREENSHOTS_PATH}/${filename}`;
 
   try {
@@ -67,9 +65,10 @@ export const postBookmark = async (req: Request, res: Response) => {
   }
 
   const {title, url, tags} = req.body;
+  const screenshot = getScreenshotName(url);
 
   try {
-    const bookmark = await Bookmark.create({title, url, tags});
+    const bookmark = await Bookmark.create({title, url, tags, screenshot});
     res.status(200).json(bookmark);
   } catch (error) {
     res.status(500).json({error});
