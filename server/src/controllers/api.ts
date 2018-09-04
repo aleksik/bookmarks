@@ -49,6 +49,7 @@ export const getPreview = async (req: Request, res: Response) => {
       screenshot: filename
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error });
   }
 };

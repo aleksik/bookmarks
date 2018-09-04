@@ -5,8 +5,8 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
 import expressValidator from "express-validator";
-import { query, validationResult } from "express-validator/check";
-import { MONGODB_URI, PORT } from "./util/secrets";
+import cors from "cors";
+import { MONGODB_URI, PORT, ENVIRONMENT } from "./util/secrets";
 import logger from "./util/logger";
 
 // Controllers
@@ -29,6 +29,11 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
+
+// Enable cors on dev
+if (ENVIRONMENT !== "production") {
+  app.use(cors());
+}
 
 // API routes
 app.use("/api", apiController);
