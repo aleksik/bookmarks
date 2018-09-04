@@ -34,7 +34,8 @@ export const getPreview = async (req: Request, res: Response) => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: "networkidle0"});
+    await page.setViewport({ width: 800, height: 840 });
+    await page.goto(url, { waitUntil: "networkidle0" });
 
     if (!existsSync(path)) {
       await page.screenshot({ path });

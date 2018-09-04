@@ -1,0 +1,78 @@
+@import '../../util/variables.scss';
+
+.Backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $colorDark;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity ease-in 75ms;
+
+  &.open {
+    opacity: 0.8;
+    pointer-events: visiblePainted;
+    cursor: pointer;
+  }
+}
+
+.Sidebar {
+  position: fixed;
+  top: 0;
+  left: calc(100% - 70px);
+  bottom: 0;
+  width: 600px;
+  background: $colorDarkLight;
+  transition: transform ease-out 75ms;
+  display: flex;
+  flex-flow: row nowrap;
+
+  &.open {
+    transform: translate3d(-530px, 0, 0);
+  }
+}
+
+.SidebarMenu {
+  color: $colorLight;
+  padding: $baseSpace * 0.75;
+  width: 70px;
+  margin-right: $baseSpace / 2;
+
+  &_Item {
+    cursor: pointer;
+    opacity: 0.5;
+    margin-bottom: $baseSpace * 0.75;
+    &:hover, &.active { opacity: 1; }
+  }
+}
+
+.SidebarContent {
+  padding: $baseSpace * 0.75;
+}
+
+.Tags {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      background: $colorPrimary;
+      color: $colorLight;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-size: 14px;
+      line-height: 28px;
+      padding: 0 6px;
+      margin: 0 5px 5px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($color: $colorPrimary, $amount: 10)
+      }
+    }
+  }
+}

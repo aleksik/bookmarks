@@ -1,0 +1,84 @@
+@import '../../util/variables.scss';
+
+.BookmarkList {
+  
+}
+
+.BookmarkListItem {
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: $colorLight;
+  padding: $baseSpace * 1.25;
+  margin-bottom: $baseSpace;
+  border-radius: 4px;
+
+  &_Image {
+    width: 25%;
+    max-width: 110px;
+    min-width: 90px;
+    margin-right: $baseSpace;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &_Details {
+    display: flex;
+    flex-flow: column nowrap;
+
+    &_Tags {
+      span {
+        display: inline-block;
+        background: transparent;
+        color: $colorPrimary;
+        border-radius: 3px;
+        text-transform: uppercase;
+        font-size: 14px;
+        line-height: 28px;
+        padding: 0 3px;
+        margin: 0 5px 5px 0;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        font-weight: $fontWeightPrimaryBold;
+
+        &.active {
+          background: $colorPrimary;
+          color: $colorLight;
+          padding: 0 6px;
+          &:hover {
+            background-color: darken($color: $colorPrimary, $amount: 10)
+          }
+        }
+      }
+    }
+
+    &_Title {
+      color: $colorDark;
+      font-family: $fontSecondary;
+      font-size: 24px;
+      font-weight: $fontWeightSecondaryBold;
+      margin-bottom: $baseSpace / 2;
+    }
+
+    &_Url {
+      color: $colorGrey;
+      font-size: 16px;
+      margin-bottom: $baseSpace / 2;
+    }
+
+    &_Timestamp {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center; 
+      color: $colorGrey;
+      font-size: 14px;
+      text-transform: uppercase;
+
+      & > svg {
+        margin: 0 5px 2px -1px;
+      }
+    }
+  }
+}

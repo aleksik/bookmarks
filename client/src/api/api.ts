@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_BASE_URL = "http://localhost:3000/api";
+import { API_BASE_URL } from "../util/constants";
 
 export const getBookmarks = async (): Promise<Bookmark[]> => {
   try {
