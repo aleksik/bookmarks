@@ -1,3 +1,16 @@
+:root {
+  --colorPrimary: #3EA23E;
+  --colorSecondary: #98AFBF;
+  --colorTertiary: #D4C531;
+  --colorLight: #F8F5F5;
+  --colorDark: #24202B;
+  --colorDarkLight: #3c3648;
+  --colorDarkLightest: #554c66;
+  --colorGrey: rgb(195, 170, 170);
+  --fontPrimary: "Roboto, sans-serif";
+  --fontSecondary: '"Roboto Slab", sans-serif';
+}
+
 :global body {
-  background-color: #333;
+  background-color: var(--colorDark);
 }
