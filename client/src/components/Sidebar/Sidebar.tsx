@@ -8,7 +8,6 @@ type SidebarProps = {
 };
 
 type SidebarState = {
-  isOpen: boolean;
   openSection?: "tags" | "add";
 };
 
@@ -17,7 +16,6 @@ export default class Sidebar extends React.Component<
   SidebarState
 > {
   state: SidebarState = {
-    isOpen: false,
     openSection: undefined
   };
 
@@ -27,27 +25,24 @@ export default class Sidebar extends React.Component<
   ) => {
     event.preventDefault();
     this.setState({
-      openSection,
-      isOpen:
-        (openSection && this.state.openSection !== openSection) ||
-        !this.state.isOpen
+      openSection: openSection === this.state.openSection ? undefined : openSection
     });
   };
 
   render() {
-    const { isOpen, openSection } = this.state;
+    const { openSection } = this.state;
     return (
       <>
         <div
-          className={classNames(css.Backdrop, { [css.open]: isOpen })}
+          className={classNames(css.Backdrop, { [css.open]: openSection })}
           onClick={e => this.toggle(e)}
         />
-        <div className={classNames(css.Sidebar, { [css.open]: isOpen })}>
+        <div className={classNames(css.Sidebar, { [css.open]: openSection })}>
           <div className={css.SidebarMenu}>
             <div
               onClick={e => this.toggle(e, "tags")}
               className={classNames(css.SidebarMenu_Item, {
-                [css.active]: openSection === "tags" && isOpen
+                [css.active]: openSection === "tags"
               })}
             >
               <TagIcon size={40} />
@@ -55,7 +50,7 @@ export default class Sidebar extends React.Component<
             <div
               onClick={e => this.toggle(e, "add")}
               className={classNames(css.SidebarMenu_Item, {
-                [css.active]: openSection === "add" && isOpen
+                [css.active]: openSection === "add"
               })}
             >
               <AddIcon size={40} />
