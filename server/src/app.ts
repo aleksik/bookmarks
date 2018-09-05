@@ -29,7 +29,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(() => {
 // Session
 app.use(session({
   secret: SESSION_SECRET,
-  saveUninitialized: true,
+  saveUninitialized: false,
   resave: true
 }));
 
@@ -53,7 +53,7 @@ if (ENVIRONMENT !== "production") {
 app.use("/screenshots", express.static(SCREENSHOTS_PATH));
 
 // Routes
-app.use("/auth", authController);
 app.use("/api", apiController);
+app.use("/api/auth", authController);
 
 export default app;
