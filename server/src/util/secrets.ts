@@ -17,6 +17,8 @@ export const MONGODB_URI = process.env.MONGODB_URI;
 
 export const SCREENSHOTS_PATH = path.join(__dirname, "../../screenshots");
 
+export const UI_PATH = path.join(__dirname, "../../../client/dist");
+
 export const SESSION_SECRET = process.env.SESSION_SECRET;
 
 export const USERNAME = process.env.USERNAME;

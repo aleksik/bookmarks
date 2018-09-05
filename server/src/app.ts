@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import bluebird from "bluebird";
 import expressValidator from "express-validator";
 import cors from "cors";
-import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH, SESSION_SECRET } from "./util/secrets";
+import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH, SESSION_SECRET, UI_PATH } from "./util/secrets";
 import auth from "./util/auth";
 import logger from "./util/logger";
 
@@ -51,6 +51,9 @@ if (ENVIRONMENT !== "production") {
 
 // Serve static screenshots
 app.use("/screenshots", express.static(SCREENSHOTS_PATH));
+
+// Serve assets
+app.use("/", express.static(UI_PATH));
 
 // Routes
 app.use("/api", apiController);
