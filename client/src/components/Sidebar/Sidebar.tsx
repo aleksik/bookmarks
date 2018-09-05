@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { FiTag as TagIcon, FiPlusCircle as AddIcon } from "react-icons/fi";
+import Login from "../Login/Login";
 import css from "./Sidebar.scss";
 
 type SidebarProps = {
@@ -16,7 +17,7 @@ export default class Sidebar extends React.Component<
   SidebarState
 > {
   state: SidebarState = {
-    openSection: undefined
+    openSection: "add"
   };
 
   toggle = (
@@ -65,6 +66,9 @@ export default class Sidebar extends React.Component<
                   ))}
                 </ul>
               </div>
+            )}
+            {openSection === "add" && (
+              <Login />
             )}
           </div>
         </div>

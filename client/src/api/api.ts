@@ -48,3 +48,28 @@ export const getTags = async (): Promise<string[]> => {
     return Promise.reject("Failed to get tags");
   }
 };
+
+export const login = async (username: string, password: string): Promise<boolean> => {
+  try {
+    const response = await axios.post(API_BASE_URL + "/auth/login", {username, password}, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject("Wrong username or password");
+  }
+};
+
+export const checkAuth = async (): Promise<boolean> => {
+  try {
+    const response = await axios.get(API_BASE_URL + "/auth", {
+      withCredentials: true
+    });
+    return true;
+  } catch (error) {
+    return Promise.reject("Not authenticated");
+  }
+};
