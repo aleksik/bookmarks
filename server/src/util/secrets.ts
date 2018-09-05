@@ -17,6 +17,12 @@ export const MONGODB_URI = process.env.MONGODB_URI;
 
 export const SCREENSHOTS_PATH = path.join(__dirname, "../../screenshots");
 
+export const SESSION_SECRET = process.env.SESSION_SECRET;
+
+export const USERNAME = process.env.USERNAME;
+
+export const PASSWORD = process.env.PASSWORD;
+
 if (!MONGODB_URI) {
   logger.error("Missing MONGODB_URI environment variable.");
   process.exit(1);

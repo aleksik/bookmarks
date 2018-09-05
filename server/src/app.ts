@@ -1,15 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
+import session from "express-session";
 import compression from "compression";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
 import expressValidator from "express-validator";
 import cors from "cors";
-import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH } from "./util/secrets";
+import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH, SESSION_SECRET } from "./util/secrets";
+import auth from "./util/auth";
 import logger from "./util/logger";
 
 // Controllers
+import authController from "./controllers/auth";
 import apiController from "./controllers/api";
 
 // Express server
@@ -23,7 +26,18 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(() => {
   logger.error(err);
 });
 
-// Express config
+// Session
+app.use(session({
+  secret: SESSION_SECRET,
+  saveUninitialized: true,
+  resave: true
+}));
+
+// Auth
+app.use(auth.initialize());
+app.use(auth.session());
+
+// Other express configs
 app.set("port", PORT);
 app.use(compression());
 app.use(bodyParser.json());
@@ -38,7 +52,8 @@ if (ENVIRONMENT !== "production") {
 // Serve static screenshots
 app.use("/screenshots", express.static(SCREENSHOTS_PATH));
 
-// API routes
+// Routes
+app.use("/auth", authController);
 app.use("/api", apiController);
 
 export default app;
