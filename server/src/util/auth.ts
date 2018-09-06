@@ -1,37 +1,14 @@
-import passport from "passport";
-import {Strategy as LocalStrategy } from "passport-local";
-import { USERNAME, PASSWORD } from "./secrets";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import { USERNAME, AUTH_SECRET } from "./constants";
 
-type User = {
-  _id: number;
-  username: string;
-  password: string;
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: AUTH_SECRET
 };
 
-const user: User = {
-  _id: 1,
-  username: USERNAME,
-  password: PASSWORD
-};
-
-passport.use("login", new LocalStrategy((username, password, done) => {
-  if (username === user.username && password === user.password) {
-    return done(undefined, user);
+export default new JwtStrategy(opts, (jwtPayload, done) => {
+  if (jwtPayload.username === USERNAME) {
+    return done(undefined, true);
   }
-  done(undefined, false);
-}));
-
-passport.serializeUser((user: User, done) => {
-  done(undefined, user._id);
+  return done(undefined, false);
 });
-
-passport.deserializeUser((id, done) => {
-  if (id === user._id) {
-    return done(undefined, user);
-  }
-  done(undefined, false);
-});
-
-export default passport;
-
-

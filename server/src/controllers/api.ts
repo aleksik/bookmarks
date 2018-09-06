@@ -2,9 +2,10 @@ import { Request, Response, Router } from "express";
 import { validationResult, check } from "express-validator/check";
 import puppeteer from "puppeteer";
 import { existsSync } from "fs";
-import { SCREENSHOTS_PATH } from "../util/secrets";
+import { SCREENSHOTS_PATH } from "../util/constants";
 import { getScreenshotName } from "../util/helpers";
 import Bookmark from "../models/bookmark";
+import logger from "../util/logger";
 
 const router = Router();
 
@@ -50,7 +51,7 @@ export const getPreview = async (req: Request, res: Response) => {
       screenshot: filename
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     return res.status(500).json({ error });
   }
 };
@@ -73,6 +74,7 @@ export const postBookmark = async (req: Request, res: Response) => {
     const bookmark = await Bookmark.create({title, url, tags, screenshot});
     res.status(200).json(bookmark);
   } catch (error) {
+    logger.error(error);
     res.status(500).json({error});
   }
 };

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import fs from "fs";
 import path from "path";
 import { getScreenshotName } from "../util/helpers";
-import { SCREENSHOTS_PATH } from "../util/secrets";
+import { SCREENSHOTS_PATH } from "../util/constants";
 
 export type BookmarkModel = mongoose.Document & {
   title: string;

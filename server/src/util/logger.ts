@@ -1,5 +1,5 @@
 import winston from "winston";
-import { ENVIRONMENT } from "./secrets";
+import { ENVIRONMENT } from "./constants";
 
 const logger = winston.createLogger({
   level: ENVIRONMENT !== "production" ? "debug" : "error",

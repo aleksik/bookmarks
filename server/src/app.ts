@@ -1,15 +1,14 @@
 import express from "express";
-import dotenv from "dotenv";
-import session from "express-session";
+import passport from "passport";
 import compression from "compression";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
 import expressValidator from "express-validator";
 import cors from "cors";
-import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH, SESSION_SECRET, UI_PATH } from "./util/secrets";
-import auth from "./util/auth";
+import { MONGODB_URI, PORT, ENVIRONMENT, SCREENSHOTS_PATH, UI_PATH } from "./util/constants";
 import logger from "./util/logger";
+import auth from "./util/auth";
 
 // Controllers
 import authController from "./controllers/auth";
@@ -26,16 +25,8 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(() => {
   logger.error(err);
 });
 
-// Session
-app.use(session({
-  secret: SESSION_SECRET,
-  saveUninitialized: false,
-  resave: true
-}));
-
 // Auth
-app.use(auth.initialize());
-app.use(auth.session());
+passport.use(auth);
 
 // Other express configs
 app.set("port", PORT);

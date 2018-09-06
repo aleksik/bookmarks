@@ -3,12 +3,13 @@ import { FiCalendar as CalendarIcon } from "react-icons/fi";
 import formatDate from "date-fns/format";
 import css from "./BookmarkList.scss";
 import { SCREENSHOT_BASE_URL } from "../../util/constants";
+import { withAppContext } from "../../context/AppContext";
 
 type BookmarkListProps = {
   bookmarks: Bookmark[];
 };
 
-export default class BookmarkList extends React.Component<BookmarkListProps> {
+export class BookmarkList extends React.Component<BookmarkListProps> {
   render() {
     return (
       <div className={css.BookmarkList}>
@@ -19,6 +20,8 @@ export default class BookmarkList extends React.Component<BookmarkListProps> {
     );
   }
 }
+
+export default withAppContext(BookmarkList);
 
 type BookmarkListItemProps = Bookmark & {
 
